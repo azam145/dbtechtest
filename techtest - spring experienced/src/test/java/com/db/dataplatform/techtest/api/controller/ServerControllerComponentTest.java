@@ -159,8 +159,19 @@ public class ServerControllerComponentTest {
 
 	public void testpatchHeaderFail() {
 		/**
-		 *  TO BE DONE
+		 *  TODO
 		 */
 	}
+
+	@Test
+	public void testHadoopCallPass() {
+		// TODO
+	}
+
+	@Test
+	public void testHadoopCallFail() {
+		// TODO
+	}
+
 
 }
