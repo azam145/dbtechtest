@@ -149,18 +149,24 @@ public class ServerControllerComponentTest {
 		String headerName = "test";
 		when(serverMock.saveDataEnvelope(any(DataEnvelope.class))).thenReturn(true);
 		when(serverMock.getDataByBlockByName(headerName)).thenReturn(Optional.of(db));
-
 		MvcResult mvcResult = mockMvc.perform(
 						put(String.valueOf(URI_PATCHDATA), headerName, BlockTypeEnum.BLOCKTYPEA.toString()))
 				.andExpect(status().isOk())
 				.andReturn();
-		Assertions.assertTrue(true);
+		Assertions.assertTrue(mvcResult.getResponse().getBufferSize() >0 );
 	}
 
-	public void testpatchHeaderFail() {
-		/**
-		 *  TODO
-		 */
+	@Test
+	public void testpatchHeaderFail() throws Exception {
+		String headerName = "test";
+		when(serverMock.saveDataEnvelope(any(DataEnvelope.class))).thenReturn(false);
+		when(serverMock.getDataByBlockByName(headerName)).thenReturn(Optional.empty());
+
+		MvcResult mvcResult = mockMvc.perform(
+						put(String.valueOf(URI_PATCHDATA), headerName, BlockTypeEnum.BLOCKTYPEA.toString()))
+				.andExpect(status().isNotFound())
+				.andReturn();
+		Assertions.assertTrue(mvcResult.getResponse().getBufferSize() >0);
 	}
 
 	@Test
